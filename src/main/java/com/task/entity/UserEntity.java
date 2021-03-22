@@ -48,7 +48,7 @@ public class UserEntity implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "group_id"))
     private List<GroupEntity> groups = new ArrayList<>();
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="role_id",referencedColumnName = "id")
     private RoleEntity roleEntity;
 }

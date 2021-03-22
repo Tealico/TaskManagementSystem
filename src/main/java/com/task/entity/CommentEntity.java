@@ -38,11 +38,8 @@ public class CommentEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "users", nullable = false)
     private UserEntity user;
-    
-    @ManyToOne
-    @JoinColumn(name = "role_id", referencedColumnName = "role", nullable = false)
-    private RoleEntity role;
-    
+
+
     @ManyToOne
     @JoinColumn(name = "task_id", referencedColumnName = "task", nullable = false)
     private TaskEntity task;
