@@ -4,11 +4,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.h2.engine.User;
 
 import javax.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "group")
@@ -32,5 +35,10 @@ public class GroupEntity implements Serializable {
     
     @Column(name = "created_at")
     private LocalDateTime createdAt;
-      
+
+/*    @ManyToMany(mappedBy = "users")
+    private List<UserEntity> userEntities=new ArrayList<>();
+
+    @OneToMany(mappedBy = "task")
+    private List<TaskEntity> taskEntities=new ArrayList<>();*/
 }
