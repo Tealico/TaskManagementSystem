@@ -8,7 +8,6 @@ import lombok.ToString;
 import javax.persistence.*;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @Table(name = "status")
@@ -26,9 +25,5 @@ public class StatusEntity implements Serializable {
     
     @Column(name = "description")
     private String description;
-    
-    @OneToMany(mappedBy = "status")
-    private List<TaskEntity> task;
-
 
 }

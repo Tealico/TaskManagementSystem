@@ -8,7 +8,6 @@ import lombok.ToString;
 import javax.persistence.*;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @Table(name = "complexity")
@@ -29,8 +28,5 @@ public class ComplexityEntity implements Serializable {
     
     @Column(name = "point")
     private int point;
-    
-    @OneToMany(mappedBy = "complexity")
-    private List<TaskEntity> task;
 
 }

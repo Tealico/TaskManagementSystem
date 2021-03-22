@@ -30,8 +30,7 @@ public class GroupEntity implements Serializable {
     @Column(name = "description")
     private String description;
     
-    @Column(name = "last_update")
-    private LocalDateTime lastUpdate;
-       
-
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+      
 }

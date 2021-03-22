@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -17,7 +18,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @ToString
-public class CommentEntity implements Serializable {
+public class CommentEntity<UserEntity, TaskEntity> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -33,5 +34,13 @@ public class CommentEntity implements Serializable {
     
     @Column(name = "last_update")
     private LocalDateTime lastUpdate;
+    
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "users", nullable = false)
+    private UserEntity user;
+    
+    @ManyToOne
+    @JoinColumn(name = "task_id", referencedColumnName = "task", nullable = false)
+    private TaskEntity task;
 
 }
