@@ -1,0 +1,12 @@
+spring:
+    datasource:
+        password: tea1999
+        url: jdbc:postgresql://localhost:5433/taskSystem
+        username: postgres
+        platform: POSTGRESQL
+    jpa:
+      database-platform: org.hibernate.dialect.PostgreSQLDialect
+      show-sql: true
+      hibernate:
+         ddl-auto: none
+     
