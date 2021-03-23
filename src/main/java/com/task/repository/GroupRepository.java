@@ -39,7 +39,6 @@ public class GroupRepository {
 	}
 
 	public void addGroup(GroupEntity group) {
-		group.setCreatedAt();
 		entityManager.persist(group);
 	}
 
