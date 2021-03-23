@@ -7,6 +7,7 @@ import lombok.ToString;
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "role")
@@ -24,5 +25,8 @@ public class RoleEntity implements Serializable {
     
     @Column(name = "name")
     private String name;
+    
+    @OneToMany(mappedBy = "role")
+    private List<UserEntity> users;
 
 }

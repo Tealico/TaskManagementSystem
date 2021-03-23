@@ -1,7 +1,6 @@
 package com.task.repository;
 
 import com.task.entity.UserEntity;
-import org.h2.engine.User;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
