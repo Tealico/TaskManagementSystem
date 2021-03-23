@@ -22,7 +22,7 @@ public class GroupRepository {
 		this.entityManager = entityManager;
 	}
 	
-	private static final String GROUP_BY_ID = "SELECT user FROM GroupEntity group where group.group_id =?1 ";
+	private static final String GROUP_BY_ID = "SELECT group FROM GroupEntity group where group.group_id =?1 ";
 
 	public List<GroupEntity> getAllGroups() {
 		TypedQuery<GroupEntity> query = entityManager.createNamedQuery("Group.findAll", GroupEntity.class);
@@ -39,6 +39,7 @@ public class GroupRepository {
 	}
 
 	public void addGroup(GroupEntity group) {
+		group.setCreatedAt();
 		entityManager.persist(group);
 	}
 

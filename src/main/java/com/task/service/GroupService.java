@@ -18,6 +18,12 @@ public class GroupService {
 	public void add(GroupEntity group) {
 		groupRepository.addGroup(group);
 	}
-
-
+	
+	public void update(GroupEntity group) {
+		groupRepository.updateGroup(group);
+	}
+	
+	public void delete(GroupEntity group) {
+		groupRepository.deleteGroup(group);
+	}
 }
