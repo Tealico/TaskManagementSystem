@@ -1,40 +1,39 @@
 package com.task.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.task.converter.GroupConverter;
+import com.task.dto.GroupDto;
+import com.task.dto.GroupDtoForCreate;
 import com.task.entity.GroupEntity;
 import com.task.service.GroupService;
 
 
 @RestController
 public class GroupController {
-	private GroupService groupService;
+	@Autowired
+	GroupService groupService;
+	
+	@PostMapping("/addGroup")
+	public GroupDto addGroup(@RequestBody GroupDtoForCreate group) {
+		return GroupConverter.toDto(groupService.addGroup(group));
+	}
+	
+//	@PostMapping("/updategroup")
+//	public GroupEntity updateGroup(@RequestBody GroupEntity group) {
+//		groupService.update(group);
+//		return group;
+//	}
+	
+	@DeleteMapping("/deleteGroup/{id}")
+	public void deleteGroup(@PathVariable long id) {
+		groupService.deleteGroup(id);
 
-	public GroupController(GroupService groupService) {
-		super();
-		this.groupService = groupService;
-	}
-	
-	@PostMapping("/addgroup")
-	public GroupEntity addGroup(@RequestBody GroupEntity group) {
-		System.out.println(group);
-		groupService.add(group);
-		// return input object
-		return group;
-	}
-	
-	@PostMapping("/updategroup")
-	public GroupEntity updateGroup(@RequestBody GroupEntity group) {
-		groupService.update(group);
-		return group;
-	}
-	
-	@PostMapping("/deletegroup")
-	public GroupEntity deleteGroup(@RequestBody GroupEntity group) {
-		groupService.delete(group);
-		return group;
 	}
 	
 }
