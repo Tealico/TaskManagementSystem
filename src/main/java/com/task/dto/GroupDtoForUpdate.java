@@ -11,7 +11,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
-public class GroupDtoForCreate {
+public class GroupDtoForUpdate {
 	private String name;
 
 	private String description;

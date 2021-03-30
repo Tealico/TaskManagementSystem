@@ -2,6 +2,7 @@ package com.task.converter;
 
 import com.task.dto.GroupDto;
 import com.task.dto.GroupDtoForCreate;
+import com.task.dto.GroupDtoForUpdate;
 import com.task.entity.GroupEntity;
 
 public class GroupConverter {
@@ -26,7 +27,12 @@ public class GroupConverter {
 		GroupEntity toReturn=new GroupEntity();
 		toReturn.setName(dto.getName());
 		toReturn.setDescription(dto.getDescription());
-		toReturn.setCreatedAt(dto.getCreatedAt());
+		return toReturn;
+	}
+	public static GroupEntity toEntityForUpdate(GroupDtoForUpdate dto) {
+		GroupEntity toReturn=new GroupEntity();
+		toReturn.setName(dto.getName());
+		toReturn.setDescription(dto.getDescription());
 		return toReturn;
 	}
 }

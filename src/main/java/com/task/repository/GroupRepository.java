@@ -25,7 +25,8 @@ public class GroupRepository {
 	private static final String GROUP_BY_ID = "SELECT group FROM GroupEntity group where group.group_id =?1 ";
 
 	public List<GroupEntity> getAllGroups() {
-		TypedQuery<GroupEntity> query = entityManager.createNamedQuery("Group.findAll", GroupEntity.class);
+		TypedQuery<GroupEntity> query = entityManager.createNamedQuery("group.findAll", GroupEntity.class);
+		System.out.println(query.toString());
 		return query.getResultList();
 	}
 	
@@ -39,11 +40,12 @@ public class GroupRepository {
 	}
 
 	public void addGroup(GroupEntity group) {
+		System.out.println(group.toString());
 		entityManager.persist(group);
 	}
 
-	public void updateGroup(GroupEntity group) {
-		entityManager.merge(group);
+	public GroupEntity updateGroup(GroupEntity group) {
+		return entityManager.merge(group);
 	}
 
 	public void deleteGroup(GroupEntity group) {

@@ -24,6 +24,7 @@ public class GroupEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@Column(name = "group_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
@@ -36,9 +37,9 @@ public class GroupEntity implements Serializable {
 	@Column(name = "created_at")
 	private LocalDateTime createdAt;
 
-	@ManyToMany
-	@JoinTable(name = "user_group", joinColumns = @JoinColumn(name = "group_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-	private List<UserEntity> users = new ArrayList<>();
+//	@ManyToMany
+//	@JoinTable(name = "user_group", joinColumns = @JoinColumn(name = "group_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+//	private List<UserEntity> users = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -72,13 +73,20 @@ public class GroupEntity implements Serializable {
 		this.createdAt = createdAt;
 	}
 
-	public List<UserEntity> getUsers() {
-		return users;
+	@Override
+	public String toString() {
+		return "GroupEntity [id=" + id + ", name=" + name + ", description=" + description + ", createdAt=" + createdAt
+				+ "]";
 	}
 
-	public void setUsers(List<UserEntity> users) {
-		this.users = users;
-	}
+	
+//	public List<UserEntity> getUsers() {
+//		return users;
+//	}
+//
+//	public void setUsers(List<UserEntity> users) {
+//		this.users = users;
+//	}
 
 	// @OneToMany(mappedBy = "task")
 	// private List<TaskEntity> taskEntities=new ArrayList<>();
