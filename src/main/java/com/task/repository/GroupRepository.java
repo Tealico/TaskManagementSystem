@@ -22,10 +22,10 @@ public class GroupRepository {
 		this.entityManager = entityManager;
 	}
 	
-	private static final String GROUP_BY_ID = "SELECT group FROM GroupEntity group where group.group_id =?1 ";
+	private static final String GROUP_BY_ID = "SELECT groups FROM GroupEntity groups where groups.id =?1 ";
 
 	public List<GroupEntity> getAllGroups() {
-		TypedQuery<GroupEntity> query = entityManager.createNamedQuery("group.findAll", GroupEntity.class);
+		TypedQuery<GroupEntity> query = entityManager.createNamedQuery("groups.findAll", GroupEntity.class);
 		System.out.println(query.toString());
 		return query.getResultList();
 	}
