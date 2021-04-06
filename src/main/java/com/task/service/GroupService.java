@@ -61,10 +61,11 @@ public class GroupService {
 		}
 	}
 	
-	public void deleteGroup(long id) {
+	public GroupEntity deleteGroup(long id) {
 		GroupEntity group = groupRepository.getGroupById(id);
 		if (group != null) {
 				groupRepository.deleteGroup(group);
+				return group;
 		} else {
 			System.out.println("Group not found");
 			throw new GroupException("Group with id: " + id + ", does not exist");
@@ -74,14 +75,28 @@ public class GroupService {
 	public GroupDto updateGroup(long id, GroupDtoForUpdate group) {
 		GroupEntity groupFromDb = groupRepository.getGroupById(id);
 		if (groupFromDb != null) {
-			GroupEntity updateGroupEntity = GroupConverter.toEntityForUpdate(group);
-			updateGroupEntity.setId(id);
-			GroupEntity response = groupRepository.updateGroup(updateGroupEntity);
+			if(group.getName() != null) {
+				groupFromDb.setName(group.getName());
+			}
+			
+			if(group.getDescription() != null) {
+				groupFromDb.setDescription(group.getDescription());
+			}
+			
+			GroupEntity response = groupRepository.updateGroup(groupFromDb);
 			
 			return GroupConverter.toDto(response);
 		} else {
 			System.out.println("Group not found");
 			throw new GroupException("Group with id: " + id + ", does not exist");
 		}
+	}
+	
+	public List<GroupEntity> getAllGroups(){
+		return groupRepository.getAllGroups();
+	}
+	
+	public GroupEntity getGroupById(long id) {
+		return groupRepository.getGroupById(id);
 	}
 }

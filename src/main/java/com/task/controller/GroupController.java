@@ -33,20 +33,19 @@ public class GroupController {
 		return groupService.getById(id);
 	}
 	
-	@PostMapping("/addGroup")
+	@PostMapping("/group")
 	public GroupDto addGroup(@RequestBody GroupDtoForCreate group) {
 		return GroupConverter.toDto(groupService.addGroup(group));
 	}
 	
-	@PostMapping("/updategroup/{id}")
+	@PostMapping("/group/{id}")
 	public GroupDto updateGroup(@PathVariable long id, @RequestBody GroupDtoForUpdate group) {
 		return groupService.updateGroup(id, group);
 	}
 	
-	@DeleteMapping("/deleteGroup/{id}")
-	public void deleteGroup(@PathVariable long id) {
-		groupService.deleteGroup(id);
-
+	@DeleteMapping("/group/{id}")
+	public GroupEntity deleteGroup(@PathVariable long id) {
+		return groupService.deleteGroup(id);
 	}
 	
 }
