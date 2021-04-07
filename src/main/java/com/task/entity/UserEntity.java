@@ -14,6 +14,7 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @ToString
+@NamedQuery(name = "users.findAll", query = "SELECT users FROM UserEntity users ")
 public class UserEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

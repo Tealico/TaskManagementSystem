@@ -20,10 +20,10 @@ public class UserRepository {
         this.entityManager = entityManager;
     }
     private static final String USER_BY_USERNAME ="select users from UserEntity where users.username=?1";
-    private static final String USER_BY_ID ="select users from UserEntity where users.id=?1";
+    private static final String USER_BY_ID ="select users from UserEntity users where users.id=?1";
     
     public List<UserEntity>getAllUsers() {
-        TypedQuery<UserEntity> query = entityManager.createQuery("User.findAll", UserEntity.class);
+        TypedQuery<UserEntity> query = entityManager.createNamedQuery("users.findAll", UserEntity.class);
         return query.getResultList();
     }
 

@@ -50,7 +50,7 @@ public class UserService {
 				return userToAdd;
 			} else {
 					System.out.println("User username is mandatory");
-					throw new UserException("Username is required");
+					throw new UserException("User username is required");
 			}
 		}
 		else {
