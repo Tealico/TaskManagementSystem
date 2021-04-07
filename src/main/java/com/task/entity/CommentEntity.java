@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @ToString
+@NamedQuery(name = "comment.findAll", query = "SELECT comment FROM CommentEntity comment ")
 public class CommentEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

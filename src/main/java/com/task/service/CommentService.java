@@ -15,7 +15,6 @@ import com.task.entity.CommentEntity;
 import com.task.exception.CommentException;
 import com.task.repository.CommentRepository;
 
-
 @Service
 public class CommentService {
 	@Autowired
@@ -44,7 +43,7 @@ public class CommentService {
 	
 	public CommentEntity addComment(CommentDtoForCreate comment) {
 		if (comment != null) {
-			if (comment.getDescription() == null) {
+			if (comment.getDescription() != null) {
 				CommentEntity commentToAdd = CommentConverter.toEntityForCreate(comment);
 
 				commentToAdd.setCreatedAt(LocalDateTime.now());
@@ -76,13 +75,13 @@ public class CommentService {
 		CommentEntity commentFromDb = commentRepository.getCommentById(id);
 		if (commentFromDb != null) {
 			if(comment.getDescription() != null) {
-			commentFromDb.setDescription(comment.getDescription());
+				commentFromDb.setDescription(comment.getDescription());
 			}
-			
-			CommentEntity response = commentRepository.updateComment(commentFromDb);
 			
 			commentFromDb.setLastUpdate(LocalDateTime.now());
 			
+			CommentEntity response = commentRepository.updateComment(commentFromDb);
+		
 			return CommentConverter.toDto(response);
 		} else {
 			System.out.println("Comment not found");

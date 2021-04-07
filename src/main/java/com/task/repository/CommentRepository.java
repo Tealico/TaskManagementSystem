@@ -6,9 +6,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.task.entity.CommentEntity;
 
-
+@Repository
+@Transactional
 public class CommentRepository {
 	private EntityManager entityManager;
 

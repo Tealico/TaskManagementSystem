@@ -11,6 +11,7 @@ public class CommentConverter {
 		toReturn.setId(entity.getId());
 		toReturn.setDescription(entity.getDescription());
 		toReturn.setCreatedAt(entity.getCreatedAt());
+		toReturn.setUpdatedAt(entity.getLastUpdate());
 		return toReturn;
 	}
 
