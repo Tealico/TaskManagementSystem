@@ -43,7 +43,7 @@ public class TaskService {
 	public TaskEntity addTask(TaskDtoForCreate task) {
 		if (task != null) {
 			if (task.getStartTime() != null) {
-				if (task.getEndTime() == null) {
+				if (task.getEndTime() != null) {
 					TaskEntity taskToAdd = TaskConverter.toEntityForCreate(task);
 
 					taskToAdd.setDate(LocalDateTime.now());

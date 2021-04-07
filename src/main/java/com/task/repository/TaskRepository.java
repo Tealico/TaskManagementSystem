@@ -39,8 +39,7 @@ public class TaskRepository {
 	}
 
 	public void addTask(TaskEntity task) {
-		System.out.println(task.toString());
-		entityManager.persist(task);
+	    entityManager.persist(task);
 	}
 
 	public TaskEntity updateTask(TaskEntity task) {
