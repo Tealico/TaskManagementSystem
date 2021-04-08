@@ -34,7 +34,7 @@ public class CommentController {
 	
 	@PostMapping("/comment")
 	public CommentDto addComment(@RequestBody CommentDtoForCreate comment) {
-		return CommentConverter.toDto(commentService.addComment(comment));
+		return commentService.addComment(comment);
 	}
 	
 	@PostMapping("/comment/{id}")
@@ -43,7 +43,7 @@ public class CommentController {
 	}
 	
 	@DeleteMapping("/comment/{id}")
-	public CommentEntity deleteComment(@PathVariable long id) {
+	public CommentDto deleteComment(@PathVariable long id) {
 		return commentService.deleteComment(id);
 	}
 }

@@ -43,10 +43,11 @@ public class UserService {
 	
 	public UserEntity addUser(UserDtoForCreate user) {
 		if (user != null) {
-			if (user.getUsername() == null) {
+			if (user.getUsername() != null) {
 				UserEntity userToAdd = UserConverter.toEntityForCreate(user);
 				
 				userRepository.addUser(userToAdd);
+				
 				return userToAdd;
 			} else {
 					System.out.println("User username is mandatory");

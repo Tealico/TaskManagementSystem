@@ -2,6 +2,8 @@ package com.task.dto;
 
 import java.time.LocalDateTime;
 
+import com.task.entity.UserEntity;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,4 +22,8 @@ public class CommentDto {
 	private LocalDateTime createdAt;
 
 	private LocalDateTime updatedAt;
+	
+	private Long userId;
+	
+	private Long taskId;
 }

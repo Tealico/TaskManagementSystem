@@ -36,12 +36,12 @@ public class CommentEntity implements Serializable {
     @Column(name = "last_update")
     private LocalDateTime lastUpdate;
     
-//    @ManyToOne
-//    @JoinColumn(name = "user_id", referencedColumnName = "users", nullable = false)
-//    private UserEntity user;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "task_id", referencedColumnName = "task", nullable = false)
-//    private TaskEntity task;
+    @ManyToOne
+    @JoinColumn(name = "users_id", referencedColumnName = "id", nullable = false)
+    private UserEntity user;
+
+    @ManyToOne
+    @JoinColumn(name = "task_id", referencedColumnName = "id", nullable = false)
+    private TaskEntity task;
 
 }

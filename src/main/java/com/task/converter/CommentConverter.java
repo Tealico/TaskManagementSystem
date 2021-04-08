@@ -3,6 +3,7 @@ package com.task.converter;
 import com.task.dto.CommentDto;
 import com.task.dto.CommentDtoForCreate;
 import com.task.dto.CommentDtoForUpdate;
+import com.task.dto.UserDto;
 import com.task.entity.CommentEntity;
 
 public class CommentConverter {
@@ -12,6 +13,8 @@ public class CommentConverter {
 		toReturn.setDescription(entity.getDescription());
 		toReturn.setCreatedAt(entity.getCreatedAt());
 		toReturn.setUpdatedAt(entity.getLastUpdate());
+		toReturn.setUserId(entity.getUser().getId());
+		toReturn.setTaskId(entity.getTask().getId());
 		return toReturn;
 	}
 

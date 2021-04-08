@@ -12,4 +12,9 @@ import lombok.ToString;
 public class CommentDtoForCreate {
 	
 	private String description;
+	
+	private Long userId;
+	
+	private Long taskId;
+	
 }
