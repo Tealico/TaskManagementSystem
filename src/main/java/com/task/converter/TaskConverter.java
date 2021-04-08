@@ -11,6 +11,8 @@ public class TaskConverter {
 		toReturn.setDate(entity.getDate());
 		toReturn.setStartTime(entity.getStartTime());
 		toReturn.setEndTime(entity.getEndTime());
+		toReturn.setStatus(entity.getStatus().getDescription());
+		toReturn.setComplexity(entity.getComplexity().getName());
 		return toReturn;
 	}
 

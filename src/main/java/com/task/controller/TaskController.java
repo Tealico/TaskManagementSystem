@@ -34,7 +34,7 @@ public class TaskController {
 	
 	@PostMapping("/task")
 	public TaskDto addTask(@RequestBody TaskDtoForCreate task) {
-		return TaskConverter.toDto(taskService.addTask(task));
+		return taskService.addTask(task);
 	}
 	
 	@DeleteMapping("/task/{id}")

@@ -10,14 +10,24 @@ import org.springframework.stereotype.Service;
 import com.task.converter.TaskConverter;
 import com.task.dto.TaskDto;
 import com.task.dto.TaskDtoForCreate;
+import com.task.entity.ComplexityEntity;
+import com.task.entity.StatusEntity;
 import com.task.entity.TaskEntity;
 import com.task.exception.TaskException;
+import com.task.repository.ComplexityRepository;
+import com.task.repository.StatusRepository;
 import com.task.repository.TaskRepository;
 
 @Service
 public class TaskService {
 	@Autowired
 	TaskRepository taskRepository;
+	
+	@Autowired
+	StatusRepository statusRepository;
+	
+	@Autowired
+	ComplexityRepository complexityRepository;
 
 	public TaskDto getById(long id) {
 		TaskEntity task = taskRepository.getTaskById(id);
@@ -40,24 +50,41 @@ public class TaskService {
 		return response;
 	}
 
-	public TaskEntity addTask(TaskDtoForCreate task) {
+	public TaskDto addTask(TaskDtoForCreate task) {
 		if (task != null) {
-			if (task.getStartTime() != null) {
-				if (task.getEndTime() != null) {
-					TaskEntity taskToAdd = TaskConverter.toEntityForCreate(task);
-
-					taskToAdd.setDate(LocalDateTime.now());
-
-					taskRepository.addTask(taskToAdd);
-					return taskToAdd;
-				} else {
-					System.out.println("Task end time is mandatory");
-					throw new TaskException("Task End Time is required");
-				}
-			} else {
-				System.out.println("Task start time is mandatory");
-				throw new TaskException("Task start time is required");
+			if( task.getStatus() == null ) {
+				System.out.println("Status is mandatory");
+				throw new TaskException("Status is required");
 			}
+			
+			if( task.getComplexity() == null ) {
+				System.out.println("Complexity is mandatory");
+				throw new TaskException("Complexity is required");
+			}
+			
+			// control if status exist
+			StatusEntity status = statusRepository.getStatusByDescription(task.getStatus());
+			if(status == null) {
+				System.out.println("Bad status");
+				throw new TaskException("Status: " + task.getStatus() + " does not exist");
+			}
+			
+			// control if complexity exist
+			ComplexityEntity complexity = complexityRepository.getComplexityByName(task.getComplexity());
+			if(complexity == null) {
+				System.out.println("Bad complexity");
+				throw new TaskException("Complexity: " + task.getComplexity() + " does not exist");
+			}
+			
+			TaskEntity taskToAdd = TaskConverter.toEntityForCreate(task);
+
+			taskToAdd.setStatus(status);
+			taskToAdd.setComplexity(complexity);
+			taskToAdd.setDate(LocalDateTime.now());
+
+			taskRepository.addTask(taskToAdd);
+			return TaskConverter.toDto(taskToAdd);
+				
 		} else {
 			throw new TaskException("Could not create task");
 		}

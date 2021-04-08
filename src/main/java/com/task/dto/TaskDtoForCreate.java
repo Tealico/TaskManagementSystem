@@ -16,4 +16,7 @@ public class TaskDtoForCreate {
 	
 	private LocalDateTime endTime;
 
+	private String status;
+	
+	private String complexity;
 }

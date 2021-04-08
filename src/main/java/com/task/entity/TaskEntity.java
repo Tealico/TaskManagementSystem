@@ -33,21 +33,21 @@ public class TaskEntity implements Serializable {
     
     @Column(name = "end_time")
     private LocalDateTime endTime;
-//    
+    
 //    @ManyToOne
-//    @JoinColumn(name = "user_id", referencedColumnName = "users")
+//    @JoinColumn(name = "user_id", referencedColumnName = "id")
 //    private UserEntity user;
-//    
+    
 //    @ManyToOne
 //    @JoinColumn(name = "group_id", referencedColumnName = "group", nullable = false)
 //    private GroupEntity group;
 //    
-//    @ManyToOne
-//    @JoinColumn(name = "status_id", referencedColumnName = "status", nullable = false)
-//    private StatusEntity status;
-//    
-//    @ManyToOne
-//    @JoinColumn(name = "complexity_id", referencedColumnName = "complexity")
-//    private ComplexityEntity complexity;    
-// 
+    @ManyToOne
+    @JoinColumn(name = "status_id", referencedColumnName = "id", nullable = false)
+    private StatusEntity status;
+    
+    @ManyToOne
+    @JoinColumn(name = "complexity_id", referencedColumnName = "id")
+    private ComplexityEntity complexity;    
+ 
 }
