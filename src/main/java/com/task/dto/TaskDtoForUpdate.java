@@ -1,5 +1,7 @@
 package com.task.dto;
 
+import java.time.LocalDateTime;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,10 +11,11 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
-public class ComplexityDto {
-	private Long id;
+public class TaskDtoForUpdate {
+
+	private LocalDateTime endTime;
 	
-	private String name;
+	private String status;
 	
-	private int point;
+	private Long userId;
 }

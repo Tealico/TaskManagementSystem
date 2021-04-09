@@ -7,16 +7,24 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.task.converter.GroupConverter;
 import com.task.converter.TaskConverter;
+import com.task.dto.GroupDto;
+import com.task.dto.GroupDtoForUpdate;
 import com.task.dto.TaskDto;
 import com.task.dto.TaskDtoForCreate;
+import com.task.dto.TaskDtoForUpdate;
 import com.task.entity.ComplexityEntity;
+import com.task.entity.GroupEntity;
 import com.task.entity.StatusEntity;
 import com.task.entity.TaskEntity;
+import com.task.entity.UserEntity;
+import com.task.exception.GroupException;
 import com.task.exception.TaskException;
 import com.task.repository.ComplexityRepository;
 import com.task.repository.StatusRepository;
 import com.task.repository.TaskRepository;
+import com.task.repository.UserRepository;
 
 @Service
 public class TaskService {
@@ -28,6 +36,9 @@ public class TaskService {
 	
 	@Autowired
 	ComplexityRepository complexityRepository;
+	
+	@Autowired
+	UserRepository userRepository;
 
 	public TaskDto getById(long id) {
 		TaskEntity task = taskRepository.getTaskById(id);
@@ -76,10 +87,21 @@ public class TaskService {
 				throw new TaskException("Complexity: " + task.getComplexity() + " does not exist");
 			}
 			
+			// control if user exist
+			UserEntity user = null;
+			if(task.getUserId() != null) {
+				user = userRepository.getUserById(task.getUserId());
+				if(user == null) {
+					System.out.println("Bad User");
+					throw new TaskException("User with id: " + task.getUserId() + " does not exist");
+				}
+			}
+			
 			TaskEntity taskToAdd = TaskConverter.toEntityForCreate(task);
-
+			
 			taskToAdd.setStatus(status);
 			taskToAdd.setComplexity(complexity);
+			taskToAdd.setUser(user);
 			taskToAdd.setDate(LocalDateTime.now());
 
 			taskRepository.addTask(taskToAdd);
@@ -100,14 +122,42 @@ public class TaskService {
 			throw new TaskException("Task with id: " + id + ", does not exist");
 		}
 	}
-
-
-	public List<TaskEntity> getAllTasks() {
-		return taskRepository.getAllTasks();
+	
+	public TaskDto updateTask(long id, TaskDtoForUpdate task) {
+		TaskEntity taskFromDb = taskRepository.getTaskById(id);
+		if (taskFromDb != null) {
+			if(task.getEndTime() != null) {
+				taskFromDb.setEndTime(task.getEndTime());
+			}
+			
+			if(task.getUserId() != null) {
+				//control user exist
+				UserEntity user = userRepository.getUserById(task.getUserId());
+				if(user == null) {
+					System.out.println("User not found");
+					throw new TaskException("User with id: " +task.getUserId() + " does not exist");
+				}
+				taskFromDb.setUser(user);
+			}
+			
+			if(task.getStatus() != null) {
+				//control status exist
+				StatusEntity status = statusRepository.getStatusByDescription(task.getStatus());
+				if(status == null) {
+					System.out.println("Status not found");
+					throw new TaskException("Status " +task.getStatus() + " not exist");
+				}
+				taskFromDb.setStatus(status);
+			}
+			
+			TaskEntity response = taskRepository.updateTask(taskFromDb);
+			
+			return TaskConverter.toDto(response);
+		} else {
+			System.out.println("Task not found");
+			throw new TaskException("Task with id: " + id + ", does not exist");
+		}
 	}
-
-	public TaskEntity getTaskById(long id) {
-		return taskRepository.getTaskById(id);
-	}
+	
 
 }

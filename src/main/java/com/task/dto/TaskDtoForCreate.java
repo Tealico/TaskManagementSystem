@@ -19,4 +19,6 @@ public class TaskDtoForCreate {
 	private String status;
 	
 	private String complexity;
+
+	private Long userId;
 }

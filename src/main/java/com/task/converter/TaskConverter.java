@@ -2,6 +2,7 @@ package com.task.converter;
 
 import com.task.dto.TaskDto;
 import com.task.dto.TaskDtoForCreate;
+import com.task.dto.TaskDtoForUpdate;
 import com.task.entity.TaskEntity;
 
 public class TaskConverter {
@@ -13,6 +14,8 @@ public class TaskConverter {
 		toReturn.setEndTime(entity.getEndTime());
 		toReturn.setStatus(entity.getStatus().getDescription());
 		toReturn.setComplexity(entity.getComplexity().getName());
+		toReturn.setUserId(entity.getUser().getId());
+		
 		return toReturn;
 	}
 
@@ -30,4 +33,10 @@ public class TaskConverter {
 		toReturn.setEndTime(dto.getEndTime());
 		return toReturn;
 	}
+	public static TaskEntity toEntityForUpdate(TaskDtoForUpdate dto) {
+		TaskEntity toReturn=new TaskEntity();
+		toReturn.setEndTime(dto.getEndTime());
+		return toReturn;
+	}
+	
 }

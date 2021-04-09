@@ -23,4 +23,6 @@ public class TaskDto {
 	private String status;
 	
 	private String complexity;
+
+	private Long userId;
 }

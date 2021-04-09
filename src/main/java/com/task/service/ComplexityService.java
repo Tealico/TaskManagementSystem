@@ -25,6 +25,7 @@ public class ComplexityService {
 			ComplexityDto dto = new ComplexityDto();
 			dto.setId(cEntity.getId());
 			dto.setName(cEntity.getName());
+			dto.setPoint(cEntity.getPoint());
 			response.add(dto);
 		}
 

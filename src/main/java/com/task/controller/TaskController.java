@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.task.converter.TaskConverter;
 import com.task.dto.TaskDto;
 import com.task.dto.TaskDtoForCreate;
+import com.task.dto.TaskDtoForUpdate;
 import com.task.entity.TaskEntity;
 import com.task.service.TaskService;
 
@@ -40,5 +41,10 @@ public class TaskController {
 	@DeleteMapping("/task/{id}")
 	public TaskEntity deleteTask(@PathVariable long id) {
 		return taskService.deleteTask(id);
+	}
+	
+	@PostMapping("/task/{id}")
+	public TaskDto updateTask(@RequestBody TaskDtoForUpdate task,@PathVariable long id) {
+		return taskService.updateTask(id,task);
 	}
 }
