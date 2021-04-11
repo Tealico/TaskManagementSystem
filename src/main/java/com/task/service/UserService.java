@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.task.converter.UserConverter;
@@ -20,6 +21,20 @@ public class UserService {
 	@Autowired
 	UserRepository userRepository;
 	
+	  public UserDto createUser(UserDtoForCreate user){
+		// control if user with the same username exist
+        if(userRepository.getUserByUsername(user.getUsername()) != null){
+            throw new UserException("User with username: " + user.getUsername() + " exists");
+        }
+        BCryptPasswordEncoder encoder = new  BCryptPasswordEncoder();
+        user.setPassword(encoder.encode(user.getPassword()));
+        
+        UserEntity userToCreate = UserConverter.toEntityForCreate(user);
+
+        userRepository.addUser(userToCreate);
+        
+        return UserConverter.toDto(userToCreate);
+    }
 	
 	public UserDto getById(long id) {
 		UserEntity user = userRepository.getUserById(id);

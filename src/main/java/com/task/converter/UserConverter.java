@@ -12,7 +12,6 @@ public class UserConverter {
 		toReturn.setId(entity.getId());
 		toReturn.setFirstName(entity.getFirstName());
 		toReturn.setUsername(entity.getUsername());
-		toReturn.setPassword(entity.getPassword());
 		toReturn.setPosition(entity.getPosition());
 		toReturn.setEmail(entity.getEmail());
 		return toReturn;

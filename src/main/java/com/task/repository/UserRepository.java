@@ -19,7 +19,7 @@ public class UserRepository {
     public UserRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
-    private static final String USER_BY_USERNAME ="select users from UserEntity where users.username=?1";
+    private static final String USER_BY_USERNAME ="select users from UserEntity users where users.username=?1";
     private static final String USER_BY_ID ="select users from UserEntity users where users.id=?1";
     
     public List<UserEntity>getAllUsers() {
@@ -36,6 +36,7 @@ public class UserRepository {
             return null;
         }
     }
+    
     public UserEntity getUserById(long userId) {
 		TypedQuery<UserEntity> query = entityManager.createQuery(USER_BY_ID, UserEntity.class).setParameter(1,userId);
 		try {
