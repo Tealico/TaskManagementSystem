@@ -1,5 +1,9 @@
 package com.task.converter;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.task.dto.GroupDto;
 import com.task.dto.UserDto;
 import com.task.dto.UserDtoForCreate;
 import com.task.dto.UserDtoForUpdate;
@@ -14,7 +18,15 @@ public class UserConverter {
 		toReturn.setUsername(entity.getUsername());
 		toReturn.setPosition(entity.getPosition());
 		toReturn.setEmail(entity.getEmail());
+		
+		List<GroupDto> groups = new ArrayList<>();
+		for(GroupEntity gEntity: entity.getGroups()) {
+			groups.add(GroupConverter.toDto(gEntity));
+		}
+		toReturn.setGroups(groups);;
+		
 		return toReturn;
+		
 	}
 
 	public static UserEntity toEntity(UserDto dto) {
@@ -22,7 +34,6 @@ public class UserConverter {
 		toReturn.setId(dto.getId());
 		toReturn.setFirstName(dto.getFirstName());
 		toReturn.setUsername(dto.getUsername());
-		toReturn.setPassword(dto.getPassword());
 		toReturn.setPosition(dto.getPosition());
 		toReturn.setEmail(dto.getEmail());
 		return toReturn;

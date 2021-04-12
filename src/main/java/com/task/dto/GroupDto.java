@@ -1,6 +1,7 @@
 package com.task.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,5 +21,7 @@ public class GroupDto {
 	private String description;
 	
 	private LocalDateTime createdAt;
+	
+	private List<UserDto> users;
 	
 }

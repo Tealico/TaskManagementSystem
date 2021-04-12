@@ -9,6 +9,8 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "groups")
@@ -35,9 +37,9 @@ public class GroupEntity implements Serializable {
 	@Column(name = "created_at")
 	private LocalDateTime createdAt;
 
-//	@ManyToMany
-//	@JoinTable(name = "user_group", joinColumns = @JoinColumn(name = "group_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-//	private List<UserEntity> users = new ArrayList<>();
+	@ManyToMany
+	@JoinTable(name = "user_group", joinColumns = @JoinColumn(name = "groups_id"), inverseJoinColumns = @JoinColumn(name = "users_id"))
+	private List<UserEntity> users;
 
 
 	// @OneToMany(mappedBy = "task")

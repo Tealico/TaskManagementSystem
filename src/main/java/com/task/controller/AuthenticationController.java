@@ -51,9 +51,9 @@ public class AuthenticationController {
     	UserPrincipal agilityUserDetail = (UserPrincipal) authentication.getPrincipal();
     	LoginResponseDto response = new LoginResponseDto();
         response.setUsername(agilityUserDetail.getUsername());
-//        String rolesAsStringList = agilityUserDetail.getAuthorities().stream().map(GrantedAuthority::getAuthority)
-//                .collect(Collectors.toList()).get(0);
-//        response.setRole(rolesAsStringList);
+        String rolesAsStringList = agilityUserDetail.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList()).get(0);
+        response.setRole(rolesAsStringList);
         String generatedToken = jwtProvider.issueToken(agilityUserDetail);
         response.setToken(generatedToken);
         return response;

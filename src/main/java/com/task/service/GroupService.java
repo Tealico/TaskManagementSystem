@@ -23,6 +23,7 @@ public class GroupService {
 	
 	public GroupDto getById(long id) {
 		GroupEntity group = groupRepository.getGroupById(id);
+		System.out.println(group);
 		if (group != null) {
 			return GroupConverter.toDto(group);
 		} else {

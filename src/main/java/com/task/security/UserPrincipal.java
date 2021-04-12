@@ -31,7 +31,7 @@ public class UserPrincipal implements UserDetails {
 	public static UserPrincipal build(UserEntity user) {
 		UserPrincipal userPrincipal = new UserPrincipal();
 		List<UserAuthority> grantedAuthorities = new ArrayList<>();
-//		grantedAuthorities.add(new UserAuthority(user.getRole()));
+		grantedAuthorities.add(new UserAuthority(user.getRole().getName()));
 		userPrincipal.setAuthorities(grantedAuthorities);
 		userPrincipal.setId(user.getId().toString());
 		userPrincipal.setFirstName(user.getFirstName());

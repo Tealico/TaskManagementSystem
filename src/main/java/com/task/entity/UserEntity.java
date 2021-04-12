@@ -7,6 +7,8 @@ import lombok.ToString;
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -40,14 +42,12 @@ public class UserEntity implements Serializable {
        
 //    @OneToMany(mappedBy = "task")
 //    private List<TaskEntity> tasks;
-//    
-//    @ManyToMany
-//    @JoinTable(name = "user_group",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "group_id"))
-//    private List<GroupEntity> groups = new ArrayList<>();
-//
-//    @ManyToOne
-//    @JoinColumn(name="role_id",referencedColumnName = "id")
-//    private RoleEntity roleEntity;
+    
+    @ManyToMany
+	@JoinTable(name = "user_group", joinColumns = @JoinColumn(name = "users_id"), inverseJoinColumns = @JoinColumn(name = "groups_id"))
+	private List<GroupEntity> groups;
+
+    @ManyToOne
+    @JoinColumn(name="role_id",referencedColumnName = "id")
+    private RoleEntity role;
 }
