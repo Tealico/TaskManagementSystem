@@ -37,10 +37,6 @@ public class GroupEntity implements Serializable {
 	@Column(name = "created_at")
 	private LocalDateTime createdAt;
 
-	@ManyToMany
-	@JoinTable(name = "user_group", joinColumns = @JoinColumn(name = "groups_id"), inverseJoinColumns = @JoinColumn(name = "users_id"))
-	private List<UserEntity> users;
-
 
 	// @OneToMany(mappedBy = "task")
 	// private List<TaskEntity> taskEntities=new ArrayList<>();

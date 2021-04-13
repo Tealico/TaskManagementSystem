@@ -22,6 +22,4 @@ public class GroupDto {
 	
 	private LocalDateTime createdAt;
 	
-	private List<UserDto> users;
-	
 }

@@ -18,12 +18,6 @@ public class GroupConverter {
 		toReturn.setDescription(entity.getDescription());
 		toReturn.setCreatedAt(entity.getCreatedAt());
 		
-		List<UserDto> users = new ArrayList<>();
-		for(UserEntity uEntity: entity.getUsers()) {
-			users.add(UserConverter.toDto(uEntity));
-		}
-		toReturn.setUsers(users);
-		
 		return toReturn;
 	}
 
