@@ -8,10 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.task.converter.GroupConverter;
+import com.task.converter.UserConverter;
 import com.task.dto.GroupDto;
 import com.task.dto.GroupDtoForCreate;
 import com.task.dto.GroupDtoForUpdate;
+import com.task.dto.UserDto;
 import com.task.entity.GroupEntity;
+import com.task.entity.UserEntity;
 import com.task.exception.GroupException;
 import com.task.repository.GroupRepository;
 
@@ -93,11 +96,13 @@ public class GroupService {
 		}
 	}
 	
-	public List<GroupEntity> getAllGroups(){
-		return groupRepository.getAllGroups();
-	}
-	
-	public GroupEntity getGroupById(long id) {
-		return groupRepository.getGroupById(id);
+	public List<GroupDto> searchGroupByName(String name) {
+		List<GroupEntity> groupEntities = groupRepository.searchByName(name);
+		List<GroupDto> response = new ArrayList<>();
+		
+		for(GroupEntity gEntity: groupEntities) {
+			response.add(GroupConverter.toDto(gEntity));
+		}
+		return response;
 	}
 }

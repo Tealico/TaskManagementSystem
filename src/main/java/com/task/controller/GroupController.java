@@ -8,12 +8,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.task.converter.GroupConverter;
 import com.task.dto.GroupDto;
 import com.task.dto.GroupDtoForCreate;
 import com.task.dto.GroupDtoForUpdate;
+import com.task.dto.UserDto;
 import com.task.entity.GroupEntity;
 import com.task.service.GroupService;
 
@@ -24,7 +26,11 @@ public class GroupController {
 	GroupService groupService;
 	
 	@GetMapping("/group")
-	public List<GroupDto> getAll(){
+	public List<GroupDto> getAll(@RequestParam(required=false) String name){
+		
+		if(name != null) {
+			return groupService.searchGroupByName(name);
+		}
 		return groupService.getAll();
 	}
 	

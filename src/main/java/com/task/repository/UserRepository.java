@@ -21,7 +21,7 @@ public class UserRepository {
     }
     private static final String USER_BY_USERNAME ="select users from UserEntity users where users.username=?1";
     private static final String USER_BY_ID ="select users from UserEntity users where users.id=?1";
-    private static final String USER_BY_NAME="select users from UserEntity users where users.first_name=?1";
+    private static final String USER_BY_NAME="select users from UserEntity users where users.firstName like ?1";
     
     public List<UserEntity>getAllUsers() {
         TypedQuery<UserEntity> query = entityManager.createNamedQuery("users.findAll", UserEntity.class);
@@ -57,6 +57,7 @@ public class UserRepository {
     }
     
     public List<UserEntity> searchByName(String firstName) {
+    	firstName = "%" + firstName + "%";
 		TypedQuery<UserEntity> query = entityManager.createQuery(USER_BY_NAME, UserEntity.class).setParameter(1, firstName);
 		return query.getResultList();
 	}

@@ -107,12 +107,14 @@ public class UserService {
 			throw new UserException("User with id: " + id + ", does not exist");
 		}
 	}
-	
-	public List<UserEntity> getAllUsers(){
-		return userRepository.getAllUsers();
+	public List<UserDto> searchUserByName(String name) {
+		List<UserEntity> userEntities = userRepository.searchByName(name);
+		List<UserDto> response = new ArrayList<>();
+		
+		for(UserEntity uEntity: userEntities) {
+			response.add(UserConverter.toDto(uEntity));
+		}
+		return response;
 	}
 	
-	public UserEntity getUserById(long id) {
-		return userRepository.getUserById(id);
-	}
 }

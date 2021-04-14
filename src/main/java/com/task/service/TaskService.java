@@ -9,11 +9,13 @@ import org.springframework.stereotype.Service;
 
 import com.task.converter.GroupConverter;
 import com.task.converter.TaskConverter;
+import com.task.converter.UserConverter;
 import com.task.dto.GroupDto;
 import com.task.dto.GroupDtoForUpdate;
 import com.task.dto.TaskDto;
 import com.task.dto.TaskDtoForCreate;
 import com.task.dto.TaskDtoForUpdate;
+import com.task.dto.UserDto;
 import com.task.entity.ComplexityEntity;
 import com.task.entity.GroupEntity;
 import com.task.entity.StatusEntity;
@@ -158,6 +160,67 @@ public class TaskService {
 			throw new TaskException("Task with id: " + id + ", does not exist");
 		}
 	}
-	
-
+	public List<TaskDto> getTaskByUserId(long userId) {
+		List<TaskEntity> taskEntities = taskRepository.getAllTaskByUserId(userId);
+		List<TaskDto> response = new ArrayList<>();
+		
+		for(TaskEntity tEntity: taskEntities) {
+			response.add(TaskConverter.toDto(tEntity));
+		}
+		return response;
+	}
+	public List<TaskDto> getAllTaskByComplexity(String complexity) {
+		List<TaskEntity> taskEntities = taskRepository.getAllTaskByComplexity(complexity);
+		List<TaskDto> response = new ArrayList<>();
+		
+		for(TaskEntity tEntity: taskEntities) {
+			response.add(TaskConverter.toDto(tEntity));
+		}
+		return response;
+	}
+	public List<TaskDto> getAllByStatus(String status) {
+		List<TaskEntity> taskEntities = taskRepository.getAllTaskByStatus(status);
+		List<TaskDto> response = new ArrayList<>();
+		
+		for(TaskEntity tEntity: taskEntities) {
+			response.add(TaskConverter.toDto(tEntity));
+		}
+		return response;
+	}
+	public List<TaskDto> getAllTaskByComplexityAndStatus(String status,String complexity) {
+		List<TaskEntity> taskEntities = taskRepository.getAllTaskByComplexityAndStatus(status, complexity);
+		List<TaskDto> response = new ArrayList<>();
+		
+		for(TaskEntity tEntity: taskEntities) {
+			response.add(TaskConverter.toDto(tEntity));
+		}
+		return response;
+	}
+	public List<TaskDto> getTaskByUserIdAndComplexity(long userId,String complexity) {
+		List<TaskEntity> taskEntities = taskRepository.getAllTaskByUserAndComplexity(userId, complexity);
+		List<TaskDto> response = new ArrayList<>();
+		
+		for(TaskEntity tEntity: taskEntities) {
+			response.add(TaskConverter.toDto(tEntity));
+		}
+		return response;
+	}
+	public List<TaskDto> getTaskByUserIdAndStatus(long userId,String status) {
+		List<TaskEntity> taskEntities = taskRepository.getAllTaskByUserAndStatus(userId, status);
+		List<TaskDto> response = new ArrayList<>();
+		
+		for(TaskEntity tEntity: taskEntities) {
+			response.add(TaskConverter.toDto(tEntity));
+		}
+		return response;
+	}
+	public List<TaskDto> getTaskByUserIdAndComplexityAndStatus(long userId,String complexity,String status) {
+		List<TaskEntity> taskEntities = taskRepository.getAllTaskByUserIdAndComplexityAndStatus(userId, status, complexity);
+		List<TaskDto> response = new ArrayList<>();
+		
+		for(TaskEntity tEntity: taskEntities) {
+			response.add(TaskConverter.toDto(tEntity));
+		}
+		return response;
+	}
 }

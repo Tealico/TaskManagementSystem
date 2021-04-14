@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.task.converter.UserConverter;
@@ -41,7 +42,12 @@ public class UserController {
 //	    }
 	
 	@GetMapping("/user")
-	public List<UserDto> getAll(){
+	public List<UserDto> getAll(@RequestParam(required=false) String name){
+		
+		if(name != null) {
+			return userService.searchUserByName(name);
+		}
+		
 		return userService.getAll();
 	}
 	

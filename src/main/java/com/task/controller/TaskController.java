@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.task.converter.TaskConverter;
 import com.task.dto.TaskDto;
 import com.task.dto.TaskDtoForCreate;
 import com.task.dto.TaskDtoForUpdate;
@@ -24,8 +24,37 @@ public class TaskController {
 	TaskService taskService;
 	
 	@GetMapping("/task")
-	public List<TaskDto> getAll(){
+	public List<TaskDto> getAll(@RequestParam(required=false) String complexity, @RequestParam(required=false) String status){
+		
+		if(complexity != null && status != null) {
+			return taskService.getAllTaskByComplexityAndStatus(status, complexity);
+		}
+		if(complexity != null) {
+			return taskService.getAllTaskByComplexity(complexity);
+		}
+		
+		if(status != null) {
+			return taskService.getAllByStatus(status);
+		}
+		
 		return taskService.getAll();
+	}
+	
+	@GetMapping("/task/user/{userId}")
+	public List<TaskDto> getAll(@PathVariable long userId, @RequestParam(required=false) String complexity, @RequestParam(required=false) String status){
+		
+		if(userId != 0 && complexity != null && status != null) {
+			return taskService.getTaskByUserIdAndComplexityAndStatus(userId, complexity, status);
+		}
+		if(userId != 0 && complexity != null) {
+			return taskService.getTaskByUserIdAndComplexity(userId, complexity);
+		}
+		
+		if(userId != 0 && status != null) {
+			return taskService.getTaskByUserIdAndStatus(userId, status);
+		}
+		
+		return taskService.getTaskByUserId(userId);
 	}
 	
 	@GetMapping("/task/{id}")
