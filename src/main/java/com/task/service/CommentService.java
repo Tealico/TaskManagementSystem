@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.task.converter.CommentConverter;
+import com.task.converter.TaskConverter;
 import com.task.dto.CommentDto;
 import com.task.dto.CommentDtoForCreate;
 import com.task.dto.CommentDtoForUpdate;
+import com.task.dto.TaskDto;
 import com.task.entity.CommentEntity;
 import com.task.entity.TaskEntity;
 import com.task.entity.UserEntity;
@@ -123,6 +125,15 @@ public class CommentService {
 			System.out.println("Comment not found");
 			throw new CommentException("Comment with id: " + id + ", does not exist");
 		}
+	}
+	public List<CommentDto> getCommentsByTaskId(long taskId) {
+		List<CommentEntity> commentEntities = commentRepository.getAllCommentsByTaskId(taskId);
+		List<CommentDto> response = new ArrayList<>();
+		
+		for(CommentEntity cEntity: commentEntities) {
+			response.add(CommentConverter.toDto(cEntity));
+		}
+		return response;
 	}
 	
 	public List<CommentEntity> getAllComment(){

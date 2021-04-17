@@ -32,6 +32,11 @@ public class CommentController {
 		return commentService.getById(id);
 	}
 	
+	@GetMapping("/task/{taskId}/comment")
+	public List<CommentDto> getCommentsByTaskId(@PathVariable long taskId){
+		return commentService.getCommentsByTaskId(taskId);
+	}
+	
 	@PostMapping("/comment")
 	public CommentDto addComment(@RequestBody CommentDtoForCreate comment) {
 		return commentService.addComment(comment);

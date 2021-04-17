@@ -32,13 +32,13 @@ import com.task.repository.UserRepository;
 public class TaskService {
 	@Autowired
 	TaskRepository taskRepository;
-	
+
 	@Autowired
 	StatusRepository statusRepository;
-	
+
 	@Autowired
 	ComplexityRepository complexityRepository;
-	
+
 	@Autowired
 	UserRepository userRepository;
 
@@ -65,42 +65,42 @@ public class TaskService {
 
 	public TaskDto addTask(TaskDtoForCreate task) {
 		if (task != null) {
-			if( task.getStatus() == null ) {
+			if (task.getStatus() == null) {
 				System.out.println("Status is mandatory");
 				throw new TaskException("Status is required");
 			}
-			
-			if( task.getComplexity() == null ) {
+
+			if (task.getComplexity() == null) {
 				System.out.println("Complexity is mandatory");
 				throw new TaskException("Complexity is required");
 			}
-			
+
 			// control if status exist
 			StatusEntity status = statusRepository.getStatusByDescription(task.getStatus());
-			if(status == null) {
+			if (status == null) {
 				System.out.println("Bad status");
 				throw new TaskException("Status: " + task.getStatus() + " does not exist");
 			}
-			
+
 			// control if complexity exist
 			ComplexityEntity complexity = complexityRepository.getComplexityByName(task.getComplexity());
-			if(complexity == null) {
+			if (complexity == null) {
 				System.out.println("Bad complexity");
 				throw new TaskException("Complexity: " + task.getComplexity() + " does not exist");
 			}
-			
+
 			// control if user exist
 			UserEntity user = null;
-			if(task.getUserId() != null) {
+			if (task.getUserId() != null) {
 				user = userRepository.getUserById(task.getUserId());
-				if(user == null) {
+				if (user == null) {
 					System.out.println("Bad User");
 					throw new TaskException("User with id: " + task.getUserId() + " does not exist");
 				}
 			}
-			
+
 			TaskEntity taskToAdd = TaskConverter.toEntityForCreate(task);
-			
+
 			taskToAdd.setStatus(status);
 			taskToAdd.setComplexity(complexity);
 			taskToAdd.setUser(user);
@@ -108,7 +108,7 @@ public class TaskService {
 
 			taskRepository.addTask(taskToAdd);
 			return TaskConverter.toDto(taskToAdd);
-				
+
 		} else {
 			throw new TaskException("Could not create task");
 		}
@@ -124,101 +124,119 @@ public class TaskService {
 			throw new TaskException("Task with id: " + id + ", does not exist");
 		}
 	}
-	
+
 	public TaskDto updateTask(long id, TaskDtoForUpdate task) {
 		TaskEntity taskFromDb = taskRepository.getTaskById(id);
 		if (taskFromDb != null) {
-			if(task.getEndTime() != null) {
+			if (task.getEndTime() != null) {
 				taskFromDb.setEndTime(task.getEndTime());
 			}
-			
-			if(task.getUserId() != null) {
-				//control user exist
+
+			if (task.getUserId() != null) {
+				// control user exist
 				UserEntity user = userRepository.getUserById(task.getUserId());
-				if(user == null) {
+				if (user == null) {
 					System.out.println("User not found");
-					throw new TaskException("User with id: " +task.getUserId() + " does not exist");
+					throw new TaskException("User with id: " + task.getUserId() + " does not exist");
 				}
 				taskFromDb.setUser(user);
 			}
-			
-			if(task.getStatus() != null) {
-				//control status exist
+
+			if (task.getStatus() != null) {
+				// control status exist
 				StatusEntity status = statusRepository.getStatusByDescription(task.getStatus());
-				if(status == null) {
+				if (status == null) {
 					System.out.println("Status not found");
-					throw new TaskException("Status " +task.getStatus() + " not exist");
+					throw new TaskException("Status " + task.getStatus() + " not exist");
 				}
 				taskFromDb.setStatus(status);
 			}
-			
+
 			TaskEntity response = taskRepository.updateTask(taskFromDb);
-			
+
 			return TaskConverter.toDto(response);
 		} else {
 			System.out.println("Task not found");
 			throw new TaskException("Task with id: " + id + ", does not exist");
 		}
 	}
+
 	public List<TaskDto> getTaskByUserId(long userId) {
-		List<TaskEntity> taskEntities = taskRepository.getAllTaskByUserId(userId);
+		List<TaskEntity> taskEntities = taskRepository.getAllTasksByUserId(userId);
 		List<TaskDto> response = new ArrayList<>();
-		
-		for(TaskEntity tEntity: taskEntities) {
+
+		for (TaskEntity tEntity : taskEntities) {
 			response.add(TaskConverter.toDto(tEntity));
 		}
 		return response;
 	}
+
+	public List<TaskDto> getTaskByGroupId(long groupId) {
+		List<TaskEntity> taskEntities = taskRepository.getAllTasksByGroupId(groupId);
+		List<TaskDto> response = new ArrayList<>();
+
+		for (TaskEntity tEntity : taskEntities) {
+			response.add(TaskConverter.toDto(tEntity));
+		}
+		return response;
+	}
+
 	public List<TaskDto> getAllTaskByComplexity(String complexity) {
-		List<TaskEntity> taskEntities = taskRepository.getAllTaskByComplexity(complexity);
+		List<TaskEntity> taskEntities = taskRepository.getAllTasksByComplexity(complexity);
 		List<TaskDto> response = new ArrayList<>();
-		
-		for(TaskEntity tEntity: taskEntities) {
+
+		for (TaskEntity tEntity : taskEntities) {
 			response.add(TaskConverter.toDto(tEntity));
 		}
 		return response;
 	}
+
 	public List<TaskDto> getAllByStatus(String status) {
-		List<TaskEntity> taskEntities = taskRepository.getAllTaskByStatus(status);
+		List<TaskEntity> taskEntities = taskRepository.getAllTasksByStatus(status);
 		List<TaskDto> response = new ArrayList<>();
-		
-		for(TaskEntity tEntity: taskEntities) {
+
+		for (TaskEntity tEntity : taskEntities) {
 			response.add(TaskConverter.toDto(tEntity));
 		}
 		return response;
 	}
-	public List<TaskDto> getAllTaskByComplexityAndStatus(String status,String complexity) {
-		List<TaskEntity> taskEntities = taskRepository.getAllTaskByComplexityAndStatus(status, complexity);
+
+	public List<TaskDto> getAllTaskByComplexityAndStatus(String status, String complexity) {
+		List<TaskEntity> taskEntities = taskRepository.getAllTasksByComplexityAndStatus(status, complexity);
 		List<TaskDto> response = new ArrayList<>();
-		
-		for(TaskEntity tEntity: taskEntities) {
+
+		for (TaskEntity tEntity : taskEntities) {
 			response.add(TaskConverter.toDto(tEntity));
 		}
 		return response;
 	}
-	public List<TaskDto> getTaskByUserIdAndComplexity(long userId,String complexity) {
-		List<TaskEntity> taskEntities = taskRepository.getAllTaskByUserAndComplexity(userId, complexity);
+
+	public List<TaskDto> getTaskByUserIdAndComplexity(long userId, String complexity) {
+		List<TaskEntity> taskEntities = taskRepository.getAllTasksByUserAndComplexity(userId, complexity);
 		List<TaskDto> response = new ArrayList<>();
-		
-		for(TaskEntity tEntity: taskEntities) {
+
+		for (TaskEntity tEntity : taskEntities) {
 			response.add(TaskConverter.toDto(tEntity));
 		}
 		return response;
 	}
-	public List<TaskDto> getTaskByUserIdAndStatus(long userId,String status) {
-		List<TaskEntity> taskEntities = taskRepository.getAllTaskByUserAndStatus(userId, status);
+
+	public List<TaskDto> getTaskByUserIdAndStatus(long userId, String status) {
+		List<TaskEntity> taskEntities = taskRepository.getAllTasksByUserAndStatus(userId, status);
 		List<TaskDto> response = new ArrayList<>();
-		
-		for(TaskEntity tEntity: taskEntities) {
+
+		for (TaskEntity tEntity : taskEntities) {
 			response.add(TaskConverter.toDto(tEntity));
 		}
 		return response;
 	}
-	public List<TaskDto> getTaskByUserIdAndComplexityAndStatus(long userId,String complexity,String status) {
-		List<TaskEntity> taskEntities = taskRepository.getAllTaskByUserIdAndComplexityAndStatus(userId, status, complexity);
+
+	public List<TaskDto> getTaskByUserIdAndComplexityAndStatus(long userId, String complexity, String status) {
+		List<TaskEntity> taskEntities = taskRepository.getAllTasksByUserIdAndComplexityAndStatus(userId, status,
+				complexity);
 		List<TaskDto> response = new ArrayList<>();
-		
-		for(TaskEntity tEntity: taskEntities) {
+
+		for (TaskEntity tEntity : taskEntities) {
 			response.add(TaskConverter.toDto(tEntity));
 		}
 		return response;

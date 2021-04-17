@@ -24,6 +24,7 @@ public class TaskRepository {
 	
 	private static final String TASK_BY_ID = "SELECT task FROM TaskEntity task where task.id =?1 ";
 	private static final String TASK_BY_USER_ID="select task FROM TaskEntity task where task.user.id=?1";
+	private static final String TASK_BY_GROUP_ID="select task FROM TaskEntity task where task.user.groups.id=?1";
 	private static final String TASK_BY_COMPLEXITY="select task FROM TaskEntity task where task.complexity.name=?1";
 	private static final String TASK_BY_STATUS="select task FROM TaskEntity task where task.status.description=?1";
 	private static final String TASK_BY_COMPLEXITY_AND_STATUS="select task FROM TaskEntity task "
@@ -61,37 +62,41 @@ public class TaskRepository {
 		entityManager.remove(task);
 	}
 	
-	public List<TaskEntity> getAllTaskByUserId(long userId) {
+	public List<TaskEntity> getAllTasksByUserId(long userId) {
 		TypedQuery<TaskEntity> query = entityManager.createQuery(TASK_BY_USER_ID, TaskEntity.class).setParameter(1, userId);
 		return query.getResultList();
 		}
-	public List<TaskEntity> getAllTaskByComplexity(String complexity) {
+	public List<TaskEntity> getAllTasksByGroupId(long groupId) {
+		TypedQuery<TaskEntity> query = entityManager.createQuery(TASK_BY_GROUP_ID, TaskEntity.class).setParameter(1, groupId);
+		return query.getResultList();
+		}
+	public List<TaskEntity> getAllTasksByComplexity(String complexity) {
 		TypedQuery<TaskEntity> query = entityManager.createQuery(TASK_BY_COMPLEXITY, TaskEntity.class).setParameter(1, complexity);
 		return query.getResultList();
 		}
-	public List<TaskEntity> getAllTaskByStatus(String status) {
+	public List<TaskEntity> getAllTasksByStatus(String status) {
 		TypedQuery<TaskEntity> query = entityManager.createQuery(TASK_BY_STATUS, TaskEntity.class).setParameter(1, status);
 		return query.getResultList();
 		}
-	public List<TaskEntity> getAllTaskByComplexityAndStatus(String status,String complexity) {
+	public List<TaskEntity> getAllTasksByComplexityAndStatus(String status,String complexity) {
 		TypedQuery<TaskEntity> query = entityManager.createQuery(TASK_BY_COMPLEXITY_AND_STATUS, TaskEntity.class)
 				.setParameter(1, complexity)
 				.setParameter(2, status);
 		return query.getResultList();
 		}
-	public List<TaskEntity> getAllTaskByUserAndStatus(long userId,String status) {
+	public List<TaskEntity> getAllTasksByUserAndStatus(long userId,String status) {
 		TypedQuery<TaskEntity> query = entityManager.createQuery(TASK_BY_USER_ID_AND_STATUS, TaskEntity.class)
 				.setParameter(1, userId)
 				.setParameter(2, status);
 		return query.getResultList();
 		}
-	public List<TaskEntity> getAllTaskByUserAndComplexity(long userId,String complexity) {
+	public List<TaskEntity> getAllTasksByUserAndComplexity(long userId,String complexity) {
 		TypedQuery<TaskEntity> query = entityManager.createQuery(TASK_BY_USER_ID_AND_COMPLEXITY, TaskEntity.class)
 				.setParameter(1, userId)
 				.setParameter(2, complexity);
 		return query.getResultList();
 		}
-	public List<TaskEntity> getAllTaskByUserIdAndComplexityAndStatus(long userId,String status,String complexity) {
+	public List<TaskEntity> getAllTasksByUserIdAndComplexityAndStatus(long userId,String status,String complexity) {
 		TypedQuery<TaskEntity> query = entityManager.createQuery(TASK_BY_USER_ID_AND_COMPLEXITY_AND_STATUS, TaskEntity.class)
 				.setParameter(1, userId)
 				.setParameter(2, complexity)

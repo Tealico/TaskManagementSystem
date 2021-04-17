@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.task.entity.CommentEntity;
+import com.task.entity.TaskEntity;
 
 @Repository
 @Transactional
@@ -22,6 +23,7 @@ public class CommentRepository {
 	}
 	
 	private static final String COMMENT_BY_ID = "SELECT comment FROM CommentEntity comment where comment.id =?1 ";
+	private static final String COMMENTS_BY_TASK_ID="select comment FROM CommentEntity comment where comment.task.id=?1";
 
 	public List<CommentEntity> getAllComment() {
 		TypedQuery<CommentEntity> query = entityManager.createNamedQuery("comment.findAll", CommentEntity.class);
@@ -37,6 +39,10 @@ public class CommentRepository {
 			return null;
 		}
 	}
+	public List<CommentEntity> getAllCommentsByTaskId(long taskId) {
+		TypedQuery<CommentEntity> query = entityManager.createQuery(COMMENTS_BY_TASK_ID, CommentEntity.class).setParameter(1, taskId);
+		return query.getResultList();
+		}
 
 	public void addComment(CommentEntity comment) {
 	    entityManager.persist(comment);

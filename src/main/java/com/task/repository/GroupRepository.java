@@ -24,7 +24,7 @@ public class GroupRepository {
 	}
 	
 	private static final String GROUP_BY_ID = "SELECT groups FROM GroupEntity groups where groups.id =?1 ";
-	private static final String GROUP_BY_NAME="select groups FROM GroupEntity groups where groups.name=?1";
+	private static final String GROUP_BY_NAME="select groups FROM GroupEntity groups where groups.name like ?1";
 
 	public List<GroupEntity> getAllGroups() {
 		TypedQuery<GroupEntity> query = entityManager.createNamedQuery("groups.findAll", GroupEntity.class);
@@ -55,6 +55,7 @@ public class GroupRepository {
 	}
 	
 	public List<GroupEntity> searchByName(String name) {
+		name = "%" + name + "%" ;
 		TypedQuery<GroupEntity> query = entityManager.createQuery(GROUP_BY_NAME, GroupEntity.class).setParameter(1, name);
 		return query.getResultList();
 		}

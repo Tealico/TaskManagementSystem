@@ -57,6 +57,12 @@ public class TaskController {
 		return taskService.getTaskByUserId(userId);
 	}
 	
+	@GetMapping("/group/{groupId}/task")
+	public List<TaskDto> getAllTaskByGroupId(@PathVariable long groupId){
+		return taskService.getTaskByGroupId(groupId);
+	}
+	
+	
 	@GetMapping("/task/{id}")
 	public TaskDto getById(@PathVariable long id){
 		return taskService.getById(id);
