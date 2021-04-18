@@ -43,7 +43,7 @@ public class UserEntity implements Serializable {
 //    @OneToMany(mappedBy = "task")
 //    private List<TaskEntity> tasks;
     
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "user_group", joinColumns = @JoinColumn(name = "users_id"), inverseJoinColumns = @JoinColumn(name = "groups_id"))
 	private List<GroupEntity> groups;
 

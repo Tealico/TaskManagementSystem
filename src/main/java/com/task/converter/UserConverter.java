@@ -18,19 +18,21 @@ public class UserConverter {
 		toReturn.setUsername(entity.getUsername());
 		toReturn.setPosition(entity.getPosition());
 		toReturn.setEmail(entity.getEmail());
-		
+
 		List<GroupDto> groups = new ArrayList<>();
-		for(GroupEntity gEntity: entity.getGroups()) {
-			groups.add(GroupConverter.toDto(gEntity));
+		if (entity.getGroups() != null) {
+			for (GroupEntity gEntity : entity.getGroups()) {
+				groups.add(GroupConverter.toDto(gEntity));
+			}
 		}
-		toReturn.setGroups(groups);;
-		
+		toReturn.setGroups(groups);
+
 		return toReturn;
-		
+
 	}
 
 	public static UserEntity toEntity(UserDto dto) {
-		UserEntity toReturn=new UserEntity();
+		UserEntity toReturn = new UserEntity();
 		toReturn.setId(dto.getId());
 		toReturn.setFirstName(dto.getFirstName());
 		toReturn.setUsername(dto.getUsername());
@@ -38,8 +40,9 @@ public class UserConverter {
 		toReturn.setEmail(dto.getEmail());
 		return toReturn;
 	}
+
 	public static UserEntity toEntityForCreate(UserDtoForCreate dto) {
-		UserEntity toReturn=new UserEntity();
+		UserEntity toReturn = new UserEntity();
 		toReturn.setFirstName(dto.getFirstName());
 		toReturn.setUsername(dto.getUsername());
 		toReturn.setPassword(dto.getPassword());
@@ -47,8 +50,9 @@ public class UserConverter {
 		toReturn.setEmail(dto.getEmail());
 		return toReturn;
 	}
+
 	public static UserEntity toEntityForUpdate(UserDtoForUpdate dto) {
-		UserEntity toReturn=new UserEntity();
+		UserEntity toReturn = new UserEntity();
 		toReturn.setUsername(dto.getUsername());
 		toReturn.setPassword(dto.getPassword());
 		toReturn.setEmail(dto.getEmail());

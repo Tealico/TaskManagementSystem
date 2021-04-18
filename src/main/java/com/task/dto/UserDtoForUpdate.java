@@ -16,5 +16,7 @@ public class UserDtoForUpdate {
 	
 	private String email;
 	
-
+	private Long groupToAdd;
+	
+	private Long groupToRemove;
 }

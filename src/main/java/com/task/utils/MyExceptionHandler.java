@@ -38,12 +38,20 @@ public class MyExceptionHandler {
 	@ExceptionHandler(value = { RuntimeException.class })
 	protected ResponseEntity<Object> handleCustomExceptions(RuntimeException ex, WebRequest request) {
 		ErrorFormat errorBody = new ErrorFormat();
-		errorBody.setMessage(ex.getMessage());
-		errorBody.setSuggestion("Contact Admin");
+		errorBody.setMessage("Something went wrong.");
+		errorBody.setSuggestion("Try again later.");
 
 		return new ResponseEntity<>(errorBody, HttpStatus.BAD_REQUEST);
-
 	}
+	
+//	@ExceptionHandler(value = { RuntimeException.class })
+//	protected ResponseEntity<Object> handleJWTException(RuntimeException ex, WebRequest request) {
+//		ErrorFormat errorBody = new ErrorFormat();
+//		errorBody.setMessage("Something went wrong.");
+//		errorBody.setSuggestion("Try again later.");
+//
+//		return new ResponseEntity<>(errorBody, HttpStatus.UNAUTHORIZED);
+//	}
 }
 
 

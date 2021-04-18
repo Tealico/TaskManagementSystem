@@ -50,6 +50,10 @@ public class UserController {
 		
 		return userService.getAll();
 	}
+	@GetMapping("/group/{groupId}/user")
+	public List<UserDto> getAllUsersByGroupId(@PathVariable long groupId){
+		return userService.getUsersByGroupId(groupId);
+	}
 	
 	@GetMapping("/user/{id}")
 	public UserDto getById(@PathVariable long id){
