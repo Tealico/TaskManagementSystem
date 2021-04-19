@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +32,7 @@ import com.task.repository.UserRepository;
 
 @Service
 public class TaskService {
+	Logger logger = LoggerFactory.getLogger(TaskService.class);
 	@Autowired
 	TaskRepository taskRepository;
 
@@ -47,7 +50,7 @@ public class TaskService {
 		if (task != null) {
 			return TaskConverter.toDto(task);
 		} else {
-			System.out.println("Task not found");
+			logger.error("Task not found");
 			throw new TaskException("Task with id: " + id + ", does not exist");
 		}
 	}
@@ -66,26 +69,26 @@ public class TaskService {
 	public TaskDto addTask(TaskDtoForCreate task) {
 		if (task != null) {
 			if (task.getStatus() == null) {
-				System.out.println("Status is mandatory");
+				logger.info("Status is mandatory");
 				throw new TaskException("Status is required");
 			}
 
 			if (task.getComplexity() == null) {
-				System.out.println("Complexity is mandatory");
+				logger.info("Complexity is mandatory");
 				throw new TaskException("Complexity is required");
 			}
 
 			// control if status exist
 			StatusEntity status = statusRepository.getStatusByDescription(task.getStatus());
 			if (status == null) {
-				System.out.println("Bad status");
+				logger.error("Bad status");
 				throw new TaskException("Status: " + task.getStatus() + " does not exist");
 			}
 
 			// control if complexity exist
 			ComplexityEntity complexity = complexityRepository.getComplexityByName(task.getComplexity());
 			if (complexity == null) {
-				System.out.println("Bad complexity");
+				logger.error("Bad complexity");
 				throw new TaskException("Complexity: " + task.getComplexity() + " does not exist");
 			}
 
@@ -94,7 +97,7 @@ public class TaskService {
 			if (task.getUserId() != null) {
 				user = userRepository.getUserById(task.getUserId());
 				if (user == null) {
-					System.out.println("Bad User");
+					logger.error("Bad User");
 					throw new TaskException("User with id: " + task.getUserId() + " does not exist");
 				}
 			}
@@ -120,7 +123,7 @@ public class TaskService {
 			taskRepository.deleteTask(task);
 			return task;
 		} else {
-			System.out.println("Task not found");
+			logger.error("Task not found");
 			throw new TaskException("Task with id: " + id + ", does not exist");
 		}
 	}
@@ -136,7 +139,7 @@ public class TaskService {
 				// control user exist
 				UserEntity user = userRepository.getUserById(task.getUserId());
 				if (user == null) {
-					System.out.println("User not found");
+					logger.error("User not found");
 					throw new TaskException("User with id: " + task.getUserId() + " does not exist");
 				}
 				taskFromDb.setUser(user);
@@ -146,7 +149,7 @@ public class TaskService {
 				// control status exist
 				StatusEntity status = statusRepository.getStatusByDescription(task.getStatus());
 				if (status == null) {
-					System.out.println("Status not found");
+					logger.error("Status not found");
 					throw new TaskException("Status " + task.getStatus() + " not exist");
 				}
 				taskFromDb.setStatus(status);
@@ -156,7 +159,7 @@ public class TaskService {
 
 			return TaskConverter.toDto(response);
 		} else {
-			System.out.println("Task not found");
+			logger.error("Task not found");
 			throw new TaskException("Task with id: " + id + ", does not exist");
 		}
 	}

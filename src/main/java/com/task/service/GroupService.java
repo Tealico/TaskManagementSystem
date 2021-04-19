@@ -4,33 +4,32 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.task.converter.GroupConverter;
-import com.task.converter.UserConverter;
 import com.task.dto.GroupDto;
 import com.task.dto.GroupDtoForCreate;
 import com.task.dto.GroupDtoForUpdate;
-import com.task.dto.UserDto;
 import com.task.entity.GroupEntity;
-import com.task.entity.UserEntity;
 import com.task.exception.GroupException;
 import com.task.repository.GroupRepository;
 
 @Service
 public class GroupService {
+	Logger logger = LoggerFactory.getLogger(GroupService.class);
 	@Autowired
 	GroupRepository groupRepository;
 	
 	
 	public GroupDto getById(long id) {
 		GroupEntity group = groupRepository.getGroupById(id);
-		System.out.println(group);
 		if (group != null) {
 			return GroupConverter.toDto(group);
 		} else {
-			System.out.println("Group not found");
+			logger.error("Group not found");
 			throw new GroupException("Group with id: " + id + ", does not exist");
 		}
 	}
@@ -56,7 +55,7 @@ public class GroupService {
 				groupRepository.addGroup(groupToAdd);
 				return groupToAdd;
 			} else {
-					System.out.println("Group name is mandatory");
+					logger.info("Group name is mandatory");
 					throw new GroupException("Group Name is required");
 			}
 		}
@@ -71,7 +70,7 @@ public class GroupService {
 				groupRepository.deleteGroup(group);
 				return group;
 		} else {
-			System.out.println("Group not found");
+			logger.error("Group not found");
 			throw new GroupException("Group with id: " + id + ", does not exist");
 		}
 	}
@@ -91,7 +90,7 @@ public class GroupService {
 			
 			return GroupConverter.toDto(response);
 		} else {
-			System.out.println("Group not found");
+			logger.error("Group not found");
 			throw new GroupException("Group with id: " + id + ", does not exist");
 		}
 	}

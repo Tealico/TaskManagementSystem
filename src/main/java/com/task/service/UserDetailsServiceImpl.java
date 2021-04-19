@@ -18,7 +18,6 @@ public class UserDetailsServiceImpl implements UserDetailsService  {
 	@Override
 	public UserDetails loadUserByUsername(String username) {
 		UserEntity userEntity = userRepository.getUserByUsername(username);
-		System.out.println(userEntity);
 		if (userEntity == null) {
 			throw new RuntimeException("User not found");
 		}

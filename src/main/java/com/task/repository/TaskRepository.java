@@ -38,7 +38,6 @@ public class TaskRepository {
 
 	public List<TaskEntity> getAllTasks() {
 		TypedQuery<TaskEntity> query = entityManager.createNamedQuery("task.findAll", TaskEntity.class);
-		System.out.println(query.toString());
 		return query.getResultList();
 	}
 

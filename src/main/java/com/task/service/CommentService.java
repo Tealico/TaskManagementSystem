@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,7 @@ import com.task.repository.UserRepository;
 
 @Service
 public class CommentService {
+	Logger logger = LoggerFactory.getLogger(CommentService.class);
 	@Autowired
 	CommentRepository commentRepository;
 	
@@ -37,7 +40,7 @@ public class CommentService {
 		if (comment != null) {
 			return CommentConverter.toDto(comment);
 		} else {
-			System.out.println("Comment not found");
+			logger.error("Comment not found");
 			throw new CommentException("Comment with id: " + id + ", does not exist");
 		}
 	}
@@ -55,31 +58,31 @@ public class CommentService {
 	public CommentDto addComment(CommentDtoForCreate comment) {
 		if (comment != null) {
 			if (comment.getDescription() == null) {
-				System.out.println("Comment description is mandatory");
+				logger.info("Comment description is mandatory");
 				throw new CommentException("Comment description is required");
 			}
 			
 			if (comment.getUserId() == null) {
-				System.out.println("User id is mandatory");
+				logger.info("User id is mandatory");
 				throw new CommentException("User id is required");
 			}
 			
 			if( comment.getTaskId() == null) {
-				System.out.println("Task id is mandatory");
+				logger.info("Task id is mandatory");
 				throw new CommentException("Task id is required");
 			}
 			
 			// control if user exist
 			UserEntity user = userRepository.getUserById(comment.getUserId());
 			if( user == null) {
-				System.out.println("Bad user id.");
+				logger.error("Bad user id.");
 				throw new CommentException("User with id: " + comment.getUserId() + " does not exist");
 			}
 			
 			//control if task exist
 			TaskEntity task = taskRepository.getTaskById(comment.getTaskId());
 			if( task == null) {
-				System.out.println("Bad task id.");
+				logger.error("Bad task id.");
 				throw new CommentException("Task with id: " + comment.getTaskId() + " does not exist");
 			}
 			
@@ -104,7 +107,7 @@ public class CommentService {
 			commentRepository.deleteComment(comment);
 			return CommentConverter.toDto(comment);
 		} else {
-			System.out.println("Comment not found");
+			logger.error("Comment not found");
 			throw new CommentException("Comment with id: " + id + ", does not exist");
 		}
 	}
@@ -122,7 +125,7 @@ public class CommentService {
 		
 			return CommentConverter.toDto(response);
 		} else {
-			System.out.println("Comment not found");
+			logger.error("Comment not found");
 			throw new CommentException("Comment with id: " + id + ", does not exist");
 		}
 	}

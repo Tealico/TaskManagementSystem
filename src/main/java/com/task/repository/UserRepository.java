@@ -1,5 +1,7 @@
 package com.task.repository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.task.entity.UserEntity;
@@ -14,6 +16,7 @@ import java.util.List;
 @Transactional
 
 public class UserRepository {
+	Logger logger = LoggerFactory.getLogger(UserRepository.class);
 	private EntityManager entityManager;
 
 	public UserRepository(EntityManager entityManager) {
@@ -36,7 +39,7 @@ public class UserRepository {
 		try {
 			return query.getSingleResult();
 		} catch (NoResultException e) {
-			System.out.println("No results");
+			logger.error("No Result");
 			return null;
 		}
 	}

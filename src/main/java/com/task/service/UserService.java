@@ -3,6 +3,8 @@ package com.task.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,7 @@ import com.task.repository.UserRepository;
 
 @Service
 public class UserService {
+	Logger logger = LoggerFactory.getLogger(UserService.class);
 	@Autowired
 	UserRepository userRepository;
 	@Autowired
@@ -47,7 +50,7 @@ public class UserService {
 		if (user != null) {
 			return UserConverter.toDto(user);
 		} else {
-			System.out.println("User not found");
+			logger.error("User not found");
 			throw new UserException("User with id: " + id + ", does not exist");
 		}
 	}
@@ -71,7 +74,7 @@ public class UserService {
 
 				return userToAdd;
 			} else {
-				System.out.println("User username is mandatory");
+				logger.info("User username is mandatory");
 				throw new UserException("User username is required");
 			}
 		} else {
@@ -85,7 +88,7 @@ public class UserService {
 			userRepository.deleteUser(user);
 			return user;
 		} else {
-			System.out.println("User not found");
+			logger.error("User not found");
 			throw new UserException("User with id: " + id + ", does not exist");
 		}
 	}
@@ -153,7 +156,7 @@ public class UserService {
 
 			return UserConverter.toDto(response);
 		} else {
-			System.out.println("User not found");
+			logger.error("User not found");
 			throw new UserException("User with id: " + id + ", does not exist");
 		}
 	}

@@ -46,7 +46,6 @@ public class StatusRepository {
 	
 	public List<StatusEntity> getAllStatuses() {
 		TypedQuery<StatusEntity> query = entityManager.createNamedQuery("status.findAll", StatusEntity.class);
-		System.out.println(query.toString());
 		return query.getResultList();
 	}
 }

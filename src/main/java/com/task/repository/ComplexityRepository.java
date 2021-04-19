@@ -47,7 +47,6 @@ public class ComplexityRepository {
 	
 	public List<ComplexityEntity> getAllComplexities() {
 		TypedQuery<ComplexityEntity> query = entityManager.createNamedQuery("complexity.findAll", ComplexityEntity.class);
-		System.out.println(query.toString());
 		return query.getResultList();
 	}
 

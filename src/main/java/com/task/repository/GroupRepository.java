@@ -28,7 +28,6 @@ public class GroupRepository {
 
 	public List<GroupEntity> getAllGroups() {
 		TypedQuery<GroupEntity> query = entityManager.createNamedQuery("groups.findAll", GroupEntity.class);
-		System.out.println(query.toString());
 		return query.getResultList();
 	}
 	
@@ -42,7 +41,6 @@ public class GroupRepository {
 	}
 
 	public void addGroup(GroupEntity group) {
-		System.out.println(group.toString());
 		entityManager.persist(group);
 	}
 

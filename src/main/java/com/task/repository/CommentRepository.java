@@ -6,16 +6,20 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.task.entity.CommentEntity;
-import com.task.entity.TaskEntity;
 
 @Repository
 @Transactional
 public class CommentRepository {
+
+	Logger logger = LoggerFactory.getLogger(CommentRepository.class);
 	private EntityManager entityManager;
+
 
 	public CommentRepository(EntityManager entityManager) {
 		super();
@@ -27,7 +31,6 @@ public class CommentRepository {
 
 	public List<CommentEntity> getAllComment() {
 		TypedQuery<CommentEntity> query = entityManager.createNamedQuery("comment.findAll", CommentEntity.class);
-		System.out.println(query.toString());
 		return query.getResultList();
 	}
 	
