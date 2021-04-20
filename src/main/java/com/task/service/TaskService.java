@@ -120,6 +120,10 @@ public class TaskService {
 	public TaskEntity deleteTask(long id) {
 		TaskEntity task = taskRepository.getTaskById(id);
 		if (task != null) {
+			StatusEntity status = task.getStatus();
+			if(status.getDescription().equals("UNDONE")) {
+				throw new TaskException("Can not delete Undone tasks.");
+			}
 			taskRepository.deleteTask(task);
 			return task;
 		} else {

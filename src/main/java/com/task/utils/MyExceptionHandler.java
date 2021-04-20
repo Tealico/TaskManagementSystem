@@ -14,14 +14,28 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
 import com.task.dto.ErrorFormat;
-import com.task.exception.GroupException;
-import com.task.exception.TaskException;
+//import com.task.exception.GroupException;
+//import com.task.exception.TaskException;
+
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.SignatureException;
 
 
 @Component
 @RestControllerAdvice
 public class MyExceptionHandler {
 
+	
+//	@ExceptionHandler(value = { JwtException.class })
+//	protected ResponseEntity<Object> handleJWTException(JwtException ex, WebRequest request) {
+//		ErrorFormat errorBody = new ErrorFormat();
+//		errorBody.setMessage("Unauthorized.");
+//		errorBody.setSuggestion("Try to login first.");
+//
+//		return new ResponseEntity<>(errorBody, HttpStatus.UNAUTHORIZED);
+//	}
+	
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
@@ -34,24 +48,15 @@ public class MyExceptionHandler {
 		});
 		return errors;
 	}
-
+	
 	@ExceptionHandler(value = { RuntimeException.class })
 	protected ResponseEntity<Object> handleCustomExceptions(RuntimeException ex, WebRequest request) {
 		ErrorFormat errorBody = new ErrorFormat();
-		errorBody.setMessage("Something went wrong.");
-		errorBody.setSuggestion("Try again later.");
+		errorBody.setMessage(ex.getMessage());
+		errorBody.setSuggestion("Contact support.");
 
 		return new ResponseEntity<>(errorBody, HttpStatus.BAD_REQUEST);
 	}
-	
-//	@ExceptionHandler(value = { RuntimeException.class })
-//	protected ResponseEntity<Object> handleJWTException(RuntimeException ex, WebRequest request) {
-//		ErrorFormat errorBody = new ErrorFormat();
-//		errorBody.setMessage("Something went wrong.");
-//		errorBody.setSuggestion("Try again later.");
-//
-//		return new ResponseEntity<>(errorBody, HttpStatus.UNAUTHORIZED);
-//	}
 }
 
 

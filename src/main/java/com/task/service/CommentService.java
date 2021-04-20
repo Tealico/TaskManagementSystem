@@ -138,13 +138,5 @@ public class CommentService {
 		}
 		return response;
 	}
-	
-	public List<CommentEntity> getAllComment(){
-		return commentRepository.getAllComment();
-	}
-	
-	public CommentEntity getCommentById(long id) {
-		return commentRepository.getCommentById(id);
-	}
 
 }

@@ -65,23 +65,6 @@ public class UserService {
 		return response;
 	}
 
-	public UserEntity addUser(UserDtoForCreate user) {
-		if (user != null) {
-			if (user.getUsername() != null) {
-				UserEntity userToAdd = UserConverter.toEntityForCreate(user);
-
-				userRepository.addUser(userToAdd);
-
-				return userToAdd;
-			} else {
-				logger.info("User username is mandatory");
-				throw new UserException("User username is required");
-			}
-		} else {
-			throw new UserException("Could not create user");
-		}
-	}
-
 	public UserEntity deleteUser(long id) {
 		UserEntity user = userRepository.getUserById(id);
 		if (user != null) {
@@ -99,10 +82,6 @@ public class UserService {
 
 			if (user.getUsername() != null) {
 				userFromDb.setUsername(user.getUsername());
-			}
-
-			if (user.getPassword() != null) {
-				userFromDb.setPassword(user.getPassword());
 			}
 
 			if (user.getEmail() != null) {

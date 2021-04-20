@@ -11,8 +11,6 @@ import lombok.ToString;
 public class UserDtoForUpdate {
 
 	private String username;
-
-	private String password;
 	
 	private String email;
 	

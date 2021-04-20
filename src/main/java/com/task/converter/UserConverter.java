@@ -54,7 +54,6 @@ public class UserConverter {
 	public static UserEntity toEntityForUpdate(UserDtoForUpdate dto) {
 		UserEntity toReturn = new UserEntity();
 		toReturn.setUsername(dto.getUsername());
-		toReturn.setPassword(dto.getPassword());
 		toReturn.setEmail(dto.getEmail());
 		return toReturn;
 	}
