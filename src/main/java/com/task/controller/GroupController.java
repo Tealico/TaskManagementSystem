@@ -41,21 +41,25 @@ public class GroupController {
 	
 	@GetMapping("/group/{id}")
 	public GroupDto getById(@PathVariable long id){
+		logger.info("Get group by id" ,id);
 		return groupService.getById(id);
 	}
 	
 	@PostMapping("/group")
 	public GroupDto addGroup(@RequestBody GroupDtoForCreate group) {
+		logger.info("Create group");
 		return GroupConverter.toDto(groupService.addGroup(group));
 	}
 	
 	@PostMapping("/group/{id}")
 	public GroupDto updateGroup(@PathVariable long id, @RequestBody GroupDtoForUpdate group) {
+		logger.info("Update Group " ,id);
 		return groupService.updateGroup(id, group);
 	}
 	
 	@DeleteMapping("/group/{id}")
 	public GroupEntity deleteGroup(@PathVariable long id) {
+		logger.info("Delete group" ,id);
 		return groupService.deleteGroup(id);
 	}
 	

@@ -24,7 +24,10 @@ public class TaskEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
+    @Column(name = "title")
+    private String title;
+    
     @Column(name = "date")
     private LocalDateTime date;
     

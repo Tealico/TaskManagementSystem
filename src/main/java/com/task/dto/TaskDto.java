@@ -14,6 +14,8 @@ public class TaskDto {
 
 	private Long id;
 
+	private String title;
+
 	private LocalDateTime date;
 
 	private LocalDateTime startTime;

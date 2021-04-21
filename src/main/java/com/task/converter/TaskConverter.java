@@ -9,6 +9,7 @@ public class TaskConverter {
 	public static TaskDto toDto(TaskEntity entity) {
 		TaskDto toReturn = new TaskDto();
 		toReturn.setId(entity.getId());
+		toReturn.setTitle(entity.getTitle());
 		toReturn.setDate(entity.getDate());
 		toReturn.setStartTime(entity.getStartTime());
 		toReturn.setEndTime(entity.getEndTime());
@@ -22,6 +23,7 @@ public class TaskConverter {
 	public static TaskEntity toEntity(TaskDto dto) {
 		TaskEntity toReturn=new TaskEntity();
 		toReturn.setId(dto.getId());
+		toReturn.setTitle(dto.getTitle());
 		toReturn.setDate(dto.getDate());
 		toReturn.setStartTime(dto.getStartTime());
 		toReturn.setEndTime(dto.getEndTime());
@@ -29,6 +31,7 @@ public class TaskConverter {
 	}
 	public static TaskEntity toEntityForCreate(TaskDtoForCreate dto) {
 		TaskEntity toReturn=new TaskEntity();
+		toReturn.setTitle(dto.getTitle());
 		toReturn.setStartTime(dto.getStartTime());
 		toReturn.setEndTime(dto.getEndTime());
 		return toReturn;

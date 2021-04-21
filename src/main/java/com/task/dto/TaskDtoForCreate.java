@@ -11,6 +11,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class TaskDtoForCreate {
+	private String title;
 	
 	private LocalDateTime startTime;
 	
