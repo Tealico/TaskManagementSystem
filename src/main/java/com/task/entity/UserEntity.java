@@ -7,7 +7,6 @@ import lombok.ToString;
 import javax.persistence.*;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -50,4 +49,5 @@ public class UserEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name="role_id",referencedColumnName = "id")
     private RoleEntity role;
+
 }
