@@ -30,6 +30,7 @@ import com.task.repository.StatusRepository;
 import com.task.repository.TaskRepository;
 import com.task.repository.UserRepository;
 
+
 @Service
 public class TaskService {
 	Logger logger = LoggerFactory.getLogger(TaskService.class);
