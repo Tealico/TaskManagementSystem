@@ -43,5 +43,19 @@ public class UserDto {
 		this.position = position;
 		this.email = email;
 	}
+
+	@Override
+	public boolean equals(Object obj){
+		UserDto uDto = (UserDto) obj;
+		boolean status = false;
+		if(this.firstName.equals(uDto.getFirstName())
+				&& this.getId() == uDto.getId()
+				&& this.email.equals(uDto.getEmail())
+				&& this.username.equals(uDto.getUsername())
+				&& this.position.equals(uDto.getPosition())){
+			status = true;
+		}
+		return status;
+	}
 	
 }

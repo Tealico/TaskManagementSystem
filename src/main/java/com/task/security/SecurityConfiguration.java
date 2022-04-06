@@ -24,8 +24,8 @@ import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
+//@EnableWebSecurity
+//@EnableGlobalMethodSecurity(securedEnabled = false, prePostEnabled = false)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Resource(name = "userDetailService")
