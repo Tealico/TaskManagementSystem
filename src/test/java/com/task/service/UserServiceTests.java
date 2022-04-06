@@ -3,7 +3,6 @@ package com.task.service;
 import com.task.TaskApplicationTests;
 import com.task.converter.UserConverter;
 import com.task.dto.UserDto;
-import com.task.dto.UserDtoForCreate;
 import com.task.entity.UserEntity;
 import com.task.exception.UserException;
 import com.task.repository.GroupRepository;

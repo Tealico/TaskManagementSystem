@@ -68,6 +68,7 @@ public class TaskService {
 	}
 
 	public TaskDto addTask(TaskDtoForCreate task) {
+		System.out.println(task.toString());
 		if (task != null) {
 			if (task.getStatus() == null) {
 				logger.info("Status is mandatory");
@@ -95,6 +96,7 @@ public class TaskService {
 
 			// control if user exist
 			UserEntity user = null;
+			System.out.println(task.toString());
 			if (task.getUserId() != null) {
 				user = userRepository.getUserById(task.getUserId());
 				if (user == null) {

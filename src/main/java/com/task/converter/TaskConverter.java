@@ -36,6 +36,25 @@ public class TaskConverter {
 		toReturn.setEndTime(dto.getEndTime());
 		return toReturn;
 	}
+	public static TaskDtoForCreate toDtoForCreate(TaskEntity taskEntity) {
+		TaskDtoForCreate toReturn=new TaskDtoForCreate();
+		toReturn.setTitle(taskEntity.getTitle());
+		toReturn.setStartTime(taskEntity.getStartTime());
+		toReturn.setEndTime(taskEntity.getEndTime());
+		if(taskEntity.getUser() == null)
+			toReturn.setUserId(null);
+		else
+			toReturn.setUserId(taskEntity.getUser().getId());
+		if(taskEntity.getStatus() == null)
+			toReturn.setStatus(null);
+		else
+			toReturn.setStatus(taskEntity.getStatus().getDescription());
+		if(taskEntity.getComplexity() == null)
+			toReturn.setComplexity(null);
+		else
+			toReturn.setComplexity(taskEntity.getComplexity().getName());
+		return toReturn;
+	}
 	public static TaskEntity toEntityForUpdate(TaskDtoForUpdate dto) {
 		TaskEntity toReturn=new TaskEntity();
 		toReturn.setEndTime(dto.getEndTime());

@@ -1,9 +1,6 @@
 package com.task.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -14,6 +11,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 @NamedQuery(name = "complexity.findAll", query = "SELECT complexity FROM ComplexityEntity complexity ")
 public class ComplexityEntity implements Serializable {

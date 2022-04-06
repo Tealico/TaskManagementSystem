@@ -27,4 +27,20 @@ public class TaskDto {
 	private String complexity;
 
 	private Long userId;
+
+	@Override
+	public boolean equals(Object obj){
+		TaskDto tDto = (TaskDto) obj;
+		boolean status = false;
+		if(this.title.equals(tDto.getTitle())
+				&& this.getId() == tDto.getId()
+				&& this.startTime.equals(tDto.getStartTime())
+				&& this.endTime.equals(tDto.getEndTime())
+				&& this.status.equals(tDto.getStatus())
+				&& this.complexity.equals(tDto.getComplexity())
+				&& this.userId.equals(tDto.getUserId())){
+			status = true;
+		}
+		return status;
+	}
 }
