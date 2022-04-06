@@ -50,6 +50,16 @@ public class UserConverter {
 		toReturn.setEmail(dto.getEmail());
 		return toReturn;
 	}
+	public static UserDtoForCreate toDtoForCreate(UserEntity userEntity) {
+		UserDtoForCreate toReturn = new UserDtoForCreate();
+		toReturn.setFirstName(userEntity.getFirstName());
+		toReturn.setUsername(userEntity.getUsername());
+		toReturn.setPassword(userEntity.getPassword());
+		toReturn.setPosition(userEntity.getPosition());
+		toReturn.setEmail(userEntity.getEmail());
+		return toReturn;
+	}
+
 
 	public static UserEntity toEntityForUpdate(UserDtoForUpdate dto) {
 		UserEntity toReturn = new UserEntity();
